@@ -55,7 +55,20 @@ _CLOSED_LOOP_EXPORTS = frozenset(
 )
 _PLAIN_LANGUAGE_EXPORTS = frozenset({"parse_plain_language_v0"})
 _MODEL_SUGGEST_EXPORTS = frozenset({"build_fake_model_proposal"})
-_LAZY_EXPORTS = _CLOSED_LOOP_EXPORTS | _PLAIN_LANGUAGE_EXPORTS | _MODEL_SUGGEST_EXPORTS
+_REQUIREMENTS_CONTRACT_EXPORTS = frozenset(
+    {
+        "compile_requirements",
+        "RequirementsCompileResult",
+        "produce_requirements",
+        "compile_requirements_input",
+    }
+)
+_LAZY_EXPORTS = (
+    _CLOSED_LOOP_EXPORTS
+    | _PLAIN_LANGUAGE_EXPORTS
+    | _MODEL_SUGGEST_EXPORTS
+    | _REQUIREMENTS_CONTRACT_EXPORTS
+)
 
 
 def __getattr__(name: str):
@@ -72,6 +85,13 @@ def __getattr__(name: str):
         from .model_suggest import build_fake_model_proposal
 
         return build_fake_model_proposal
+    if name in _REQUIREMENTS_CONTRACT_EXPORTS:
+        from . import requirements_contract
+        from . import requirements_produce
+
+        if name == "produce_requirements":
+            return requirements_produce.produce_requirements
+        return getattr(requirements_contract, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
