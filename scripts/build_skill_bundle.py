@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 """Rebuild skills/proofhouse/proofhouse.skill from its source directory.
 
-The bundle is a committed artifact, so it is packed deterministically: entries
-sorted, fixed timestamps and attributes, and text normalised to LF. Without the
-LF normalisation the bundle's bytes would depend on the packing machine, because
+The bundle is a committed artifact, so it is packed reproducibly: entries sorted,
+fixed timestamps and attributes, text normalised to LF, and stored uncompressed.
+
+Two things would otherwise make the bytes depend on the machine that packed it.
 .gitattributes pins eol=lf for .md but leaves .json and .jsx on text=auto, which
-checks out CRLF on Windows and LF on Linux.
+checks out CRLF on Windows and LF on Linux -- hence the LF normalisation. And
+deflate output varies with the zlib version behind the running interpreter, so a
+bundle packed on one Python differs byte-for-byte from the same bundle packed on
+another even though the contents are identical -- hence ZIP_STORED. That is a
+real trade: the bundle is roughly 75 KB stored against 28 KB deflated. It buys a
+committed artifact that anyone can reproduce exactly, and git compresses the blob
+in its object store regardless.
 
 Run after changing anything under skills/proofhouse/. tests/test_skill_bundle.py
 fails if the committed bundle and the source directory disagree.
@@ -52,10 +59,10 @@ def entry_name(path: Path) -> str:
 
 def build(destination: Path | None = None) -> Path:
     destination = destination or BUNDLE
-    with zipfile.ZipFile(destination, "w", zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(destination, "w", zipfile.ZIP_STORED) as archive:
         for path in source_files():
             info = zipfile.ZipInfo(entry_name(path), date_time=FIXED_DATE)
-            info.compress_type = zipfile.ZIP_DEFLATED
+            info.compress_type = zipfile.ZIP_STORED
             info.create_system = 0  # not the packing platform
             info.external_attr = 0o644 << 16
             archive.writestr(info, entry_bytes(path))

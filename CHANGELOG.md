@@ -11,9 +11,10 @@
 
 ### Added
 
-- `scripts/build_skill_bundle.py` builds the bundle deterministically — fixed
-  timestamps and attributes, entry order sorted by name, and text normalised to
-  LF so the output does not depend on the packing platform.
+- `scripts/build_skill_bundle.py` builds the bundle reproducibly — fixed
+  timestamps and attributes, entry order sorted by name, text normalised to LF,
+  and stored uncompressed, so the output does not depend on the platform or the
+  Python version that packed it.
 - `tests/test_skill_bundle.py` fails if the committed bundle and its source
   directory disagree, which is what went unnoticed for two months.
 
