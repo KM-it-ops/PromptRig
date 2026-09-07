@@ -1,7 +1,7 @@
 """Narrow hosted Simple+Developer slice (MISSION-035).
 
 Stdlib library transport wrapping the headless closed loop. Not FastAPI,
-not Next.js, not apps/dashboard, not apps/promptrig.jsx. Q2 pick is
+not Next.js, not apps/dashboard, not apps/proofhouse.jsx. Q2 pick is
 STACK-OWNER-SELECTED. Canonical meaning stays in the compiler.
 """
 

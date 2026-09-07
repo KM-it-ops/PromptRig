@@ -8,10 +8,10 @@ description: Meta prompt-optimizer that turns a natural-language objective into 
 A meta prompt-optimizer, not a single prompt template. Given a raw objective and a target
 model, it runs a fixed four-stage flow and hands back a ready-to-paste, model-specific
 prompt. Full spec, system-prompt text, and JSON schemas live in
-`references/promptrig-framework.md` (human-readable) and
-`references/promptrig-framework.json` (machine-readable) -- read whichever is more useful
+`references/proofhouse-framework.md` (human-readable) and
+`references/proofhouse-framework.json` (machine-readable) -- read whichever is more useful
 for the task at hand. An interactive version that runs the whole flow live (calling the
-Claude API from inside a Claude artifact) is bundled at `assets/promptrig.jsx` -- offer to
+Claude API from inside a Claude artifact) is bundled at `assets/proofhouse.jsx` -- offer to
 drop that in as an artifact when the user wants the point-and-click version rather than a
 conversational walkthrough.
 
@@ -47,7 +47,7 @@ questions that only matter *if* an earlier answer goes a certain way -- present 
 
 Built-in profiles for Claude Fable 5.1, Claude Mythos 5.1, Opus 5, Sonnet 5, Haiku 4.5,
 GPT-5.6 Sol/Terra/Luna, Gemini 3.8 Flash, Grok 4.6, Muse Spark 1.3, Kimi K3, and Gemini (plus legacy Fable 5 / Mythos 5 / Opus 4.8 / GPT-5.5)
-are in `references/promptrig-framework.json` under `modelNotes`. For anything
+are in `references/proofhouse-framework.json` under `modelNotes`. For anything
 else the user names:
 
 1. Check whether you (or a prior PromptRig run) already have notes on it in this
@@ -80,7 +80,7 @@ prompt with an explicit loop shape instead of (or alongside) linear instructions
 - **Checkpoint/escalation** -- what's severe or ambiguous enough to involve the human
 - **Compounding memory** -- a running lessons file so later iterations build on earlier ones
 
-Full directive text is in `references/promptrig-framework.json` under `loopEngineering`.
+Full directive text is in `references/proofhouse-framework.json` under `loopEngineering`.
 
 ## Security & Reliability
 

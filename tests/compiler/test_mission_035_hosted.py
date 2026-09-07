@@ -87,7 +87,7 @@ def test_hosted_export_delete_and_cross_tenant(tmp_path: Path) -> None:
 
 def test_hosted_vite_jsx_not_used() -> None:
     dashboard = (ROOT / "apps" / "dashboard").resolve()
-    jsx = (ROOT / "apps" / "promptrig.jsx").resolve()
+    jsx = (ROOT / "apps" / "proofhouse.jsx").resolve()
     hosted_src = (ROOT / "src" / "proofhouse" / "compiler" / "hosted_slice.py").read_text(encoding="utf-8")
     assert dashboard.is_dir()
     assert jsx.is_file()

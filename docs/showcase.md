@@ -51,7 +51,7 @@ python -m proofhouse.cli report --dataset evals/datasets/prompt_audit_cases.json
 - Runtime deps: Python standard library only
 - Defensive safety stance documented in `SECURITY.md`
 - Source policy notes in `references/current_sources.md`
-- Portable skill + framework spec in `skills/promptrig/` and `promptrig-framework.*`
+- Portable skill + framework spec in `skills/proofhouse/` and `proofhouse-framework.*`
 
 ## What’s next
 

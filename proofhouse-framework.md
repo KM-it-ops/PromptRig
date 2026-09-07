@@ -173,5 +173,5 @@ covering trigger type, interval/condition, stop condition, and what counts as "d
 - **Interactive**: use `promptrig.jsx` as-is (calls the Claude API directly, no backend needed).
 - **Manual**: paste the system/user prompts above into any conversation, filling in the
   `{{placeholders}}` by hand.
-- **Portable**: `promptrig-framework.json` holds the same content as structured data for
+- **Portable**: `proofhouse-framework.json` holds the same content as structured data for
   scripting or dropping into other tools.

@@ -16,7 +16,7 @@ into the Custom GPT instruction field.
 
 Recommended uploads:
 
-- `prompts/core/promptrig_core.md`
+- `prompts/core/proofhouse_core.md`
 - `prompts/core/project_context_template.md`
 - `prompts/core/safety_policy.md`
 - `prompts/core/reference_policy.md`

@@ -56,7 +56,7 @@ The package runtime uses only the Python standard library. Pytest is needed only
 
 Start with:
 
-- `prompts/core/promptrig_core.md` for the universal behavior.
+- `prompts/core/proofhouse_core.md` for the universal behavior.
 - `prompts/custom_gpt/promptops_architect_custom_gpt.md` for Custom GPT instructions.
 - `prompts/modes/*.md` for task-specific operating modes.
 - `prompts/modules/*.md` for reusable audit, rewrite, safety, eval, and changelog components.
