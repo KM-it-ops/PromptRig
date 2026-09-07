@@ -47,7 +47,7 @@ const MODEL_NOTES = {
 const MODEL_OPTIONS = Object.keys(MODEL_NOTES);
 
 // Universal token-discipline directive, applied to every call this tool makes AND
-// baked into every prompt it produces. Two separate concerns: (1) keep PromptRig's
+// baked into every prompt it produces. Two separate concerns: (1) keep Proofhouse's
 // own API usage lean, (2) make the compiled prompt itself token-efficient to run.
 const TOKEN_DISCIPLINE = `Apply strict token discipline, in your own output and in the prompt you produce: eliminate redundant framing, merge overlapping constraints into single directives, never restate information already established, and default to the shortest phrasing that fully preserves meaning. Where the target model supports prompt caching (e.g., Claude models via cache_control), structure the compiled prompt so stable/reusable instructions are clearly separated from per-call variable content, and say so explicitly in settings. Do not pad with filler transitions, meta-commentary about your own process, hedging, or restated instructions.`;
 
@@ -128,7 +128,7 @@ function isVisible(q, answers) {
   return values.includes(parentVal);
 }
 
-export default function PromptRig() {
+export default function Proofhouse() {
   const [screen, setScreen] = useState("input"); // input | clarify | output
   const [rawRequest, setRawRequest] = useState("");
   const [targetModel, setTargetModel] = useState("Claude Opus 5");
@@ -311,7 +311,7 @@ Return ONLY valid JSON (no markdown fences, no prose) matching exactly this sche
         {/* Header */}
         <div className="flex items-center gap-2 mb-1">
           <Terminal size={20} className="text-[#3ddc84]" />
-          <h1 className="text-xl tracking-widest text-[#3ddc84] font-bold">PROMPTRIG</h1>
+          <h1 className="text-xl tracking-widest text-[#3ddc84] font-bold">PROOFHOUSE</h1>
           <span className="w-2 h-4 bg-[#3ddc84] animate-pulse ml-1" />
         </div>
         <p className="text-xs text-[#5a8a6a] mb-6">

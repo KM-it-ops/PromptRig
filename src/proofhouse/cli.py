@@ -69,7 +69,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="promptrig", description="PromptRig eval harness")
+    parser = argparse.ArgumentParser(prog="proofhouse", description="Proofhouse eval harness")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     validate = subparsers.add_parser("validate", help="Validate a JSONL eval dataset")
@@ -81,7 +81,7 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("--out", required=True, help="Output markdown path")
     report.set_defaults(func=cmd_report)
 
-    loadouts = subparsers.add_parser("loadouts", help="List legendary PromptRig loadouts")
+    loadouts = subparsers.add_parser("loadouts", help="List legendary Proofhouse loadouts")
     loadouts.set_defaults(func=cmd_loadouts)
 
     compile_parser = subparsers.add_parser("compile-loadout", help="Compile a legendary loadout")

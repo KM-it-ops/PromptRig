@@ -73,7 +73,7 @@ class AdapterLoweringPass:
                 source_path=source_path,
                 disposition="retained",
                 artifact_paths=(semantic_root + source_path,),
-                detail="Exact canonical IR value retained in the authorized PromptRig semantic context.",
+                detail="Exact canonical IR value retained in the authorized Proofhouse semantic context.",
             )
             for source_path in semantic_leaf_pointers(state.ir_document)
         )

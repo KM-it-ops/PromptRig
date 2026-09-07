@@ -1,4 +1,4 @@
-# PromptRig Quickstart
+# Proofhouse Quickstart
 
 Use this when you want to verify the project locally or hand it to another agent.
 
@@ -52,7 +52,7 @@ python -m pytest
 
 The package runtime uses only the Python standard library. Pytest is needed only for the test suite.
 
-## Use PromptRig
+## Use Proofhouse
 
 Start with:
 

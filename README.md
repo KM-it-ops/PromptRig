@@ -1,4 +1,4 @@
-# PromptRig
+# Proofhouse
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776ab)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/framework-v1.3-7c3aed)](proofhouse-framework.json)
@@ -7,15 +7,15 @@
 
 **Turn a rough objective into a model-specific prompt that actually works — then prove it.**
 
-PromptRig is a PromptOps framework for builders who care about *which* model runs the job, not just *what* you asked. Natural language in → batched clarification → optimized prompt out → self-heal when it misses. Built-in profiles for **September 2026 frontier models**, token discipline, loop engineering for recurring agents, and an offline eval harness — no API keys required for the certified headless path.
+Proofhouse is a PromptOps framework for builders who care about *which* model runs the job, not just *what* you asked. Natural language in → batched clarification → optimized prompt out → self-heal when it misses. Built-in profiles for **September 2026 frontier models**, token discipline, loop engineering for recurring agents, and an offline eval harness — no API keys required for the certified headless path.
 
 Portfolio: [km-it-ops.github.io](https://km-it-ops.github.io/) · Skill: `skills/proofhouse/` · Showcase: [docs/showcase.md](docs/showcase.md)
 
 ---
 
-## Why PromptRig exists
+## Why Proofhouse exists
 
-Generic prompts fail quietly: wrong model assumptions, missing context, no stop conditions, no regression tests. PromptRig treats prompts like production infrastructure:
+Generic prompts fail quietly: wrong model assumptions, missing context, no stop conditions, no regression tests. Proofhouse treats prompts like production infrastructure:
 
 | Stage | What happens |
 |---|---|
@@ -51,7 +51,7 @@ Full profiles: [`proofhouse-framework.json`](proofhouse-framework.json) · human
 
 ### 1. Conversational (default)
 
-Install the Cursor skill from `skills/proofhouse/` or invoke **PromptRig** in chat:
+Install the Cursor skill from `skills/proofhouse/` or invoke **Proofhouse** in chat:
 
 1. State your objective and target model
 2. Answer one batched clarification form
@@ -66,8 +66,8 @@ Open [`apps/proofhouse.jsx`](apps/proofhouse.jsx) — a React artifact with mode
 ```bash
 python -m pip install -e .
 python -m pytest
-promptrig-compiler doctor
-promptrig-compiler closed-loop path/to/requirements.json --repair-budget 1 --json
+proofhouse-compiler doctor
+proofhouse-compiler closed-loop path/to/requirements.json --repair-budget 1 --json
 ```
 
 Approved headless profiles: `structured_minimal_v0`, `structured_developer_v0`. Certified path is **offline** — no live providers, no benchmark claims.
@@ -115,7 +115,7 @@ skills/proofhouse/       Cursor skill bundle + artifact JSX
 apps/proofhouse.jsx      Interactive compile UI
 prompts/                Core, modes, modules, Custom GPT pack
 evals/                  JSONL datasets, YAML rubrics
-src/promptrig/          Stdlib eval harness + headless compiler
+src/proofhouse/          Stdlib eval harness + headless compiler
 tests/fixtures/         Contract schemas and validation fixtures
 ```
 
@@ -133,10 +133,10 @@ tests/fixtures/         Contract schemas and validation fixtures
 
 ## Engineering status
 
-PromptRig ships two products in one repo:
+Proofhouse ships two products in one repo:
 
 1. **PromptOps skill + framework (v1.3)** — conversational meta-optimizer with current frontier model profiles. This is the user-facing surface most people want today.
-2. **Headless compiler** — contract-first offline pipeline under `src/promptrig/compiler/`. Requirements compiler maturity remains `PARTIAL`. No live providers, no hosted UI, no benchmark claims without explicit certification.
+2. **Headless compiler** — contract-first offline pipeline under `src/proofhouse/compiler/`. Requirements compiler maturity remains `PARTIAL`. No live providers, no hosted UI, no benchmark claims without explicit certification.
 
 Internal mission reports and review corpora are not published in this repository.
 
@@ -151,4 +151,4 @@ Internal mission reports and review corpora are not published in this repository
 
 ---
 
-<sub>Custom GPT surface: <strong>PromptOps Architect powered by PromptRig</strong> · MIT License</sub>
+<sub>Custom GPT surface: <strong>PromptOps Architect powered by Proofhouse</strong> · MIT License</sub>

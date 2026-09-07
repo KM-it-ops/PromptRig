@@ -54,7 +54,7 @@ def parse_strict_json(raw: bytes | str) -> Any:
     """Parse JSON with duplicate-key and lone-surrogate rejection.
 
     Structural rejection happens during parsing, before any canonicalization
-    is attempted, per the PromptRig canonical-JSON profile.
+    is attempted, per the Proofhouse canonical-JSON profile.
     """
     if isinstance(raw, bytes):
         try:

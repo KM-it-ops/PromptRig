@@ -91,7 +91,7 @@ CAPABILITY_LIMITS = {
         "note": (
             "Anthropic's API genuinely supports server-executed tools (e.g. web_search, "
             "web_fetch, code_execution, tool_search) that run on Anthropic's own infrastructure "
-            "with no caller-side handler. PromptRig's frozen IR v0.1 `tools` array schema "
+            "with no caller-side handler. Proofhouse's frozen IR v0.1 `tools` array schema "
             "(PROMPTRIG_IR_V0_1.schema.json) only supports the caller-defined custom-tool shape "
             "(id/description/input_schema/side_effecting/approval) -- there is no IR field to "
             "select a specific Anthropic server tool or supply its configuration. This adapter "
@@ -263,7 +263,7 @@ class AnthropicAdapter:
                 "capability_resolution": "conditional",
                 "budget_tokens": None,
                 "budget_tokens_note": (
-                    "PromptRig IR v0.1 has no field to source a concrete budget_tokens "
+                    "Proofhouse IR v0.1 has no field to source a concrete budget_tokens "
                     "value from; recorded as an open IR-schema question, not silently dropped."
                 ),
                 "preservation": {

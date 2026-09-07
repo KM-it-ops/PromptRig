@@ -63,7 +63,7 @@ def compile_loadout(loadout_id: str, repo_root: str | Path = ".", path: str | Pa
     root = Path(repo_root)
     loadout = find_loadout(loadout_id, root / path if not Path(path).is_absolute() else path)
     sections = [
-        "# PromptRig Loadout",
+        "# Proofhouse Loadout",
         "",
         f"Name: {loadout.name}",
         f"Role: {loadout.role}",

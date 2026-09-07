@@ -1,4 +1,4 @@
-"""Immutable boundary types for PromptRig Compiler Core v0.1.
+"""Immutable boundary types for Proofhouse Compiler Core v0.1.
 
 These are the values exchanged between the public library API, the CLI, and
 generated TypeScript consumer types. All types are frozen dataclasses: pass

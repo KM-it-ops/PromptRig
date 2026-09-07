@@ -1,5 +1,5 @@
 {
-  "name": "PromptRig",
+  "name": "Proofhouse",
   "version": "1.3",
   "description": "A meta prompt-optimizer: natural language in, a model-specific optimized prompt out, with branching upfront clarification, a self-heal refinement loop, built-in token discipline, auto-research/indexing of unfamiliar models, and optional loop-engineering structure for recurring tasks.",
   "flow": ["input", "clarify", "compile", "self_heal_loop"],
@@ -95,10 +95,10 @@
     "endpoint": "https://api.anthropic.com/v1/messages",
     "model": "claude-sonnet-4-6",
     "max_tokens": 1000,
-    "note": "Used internally by the PromptRig artifact to run both stages. No API key required inside a Claude artifact."
+    "note": "Used internally by the Proofhouse artifact to run both stages. No API key required inside a Claude artifact."
   },
   "reuse": {
-    "interactive": "Use promptrig.jsx as-is (calls the Claude API directly, no backend needed).",
+    "interactive": "Use proofhouse.jsx as-is (calls the Claude API directly, no backend needed).",
     "manual": "Paste the system/user prompts above into any conversation, filling in the {{placeholders}} by hand.",
     "portable": "This file holds the same content as structured data for scripting or dropping into other tools/projects."
   }

@@ -1,4 +1,4 @@
-# PromptRig Framework
+# Proofhouse Framework
 
 A meta prompt-optimizer: natural language in, a model-specific optimized prompt out, with
 branching clarification and a self-heal refinement loop. Portable spec — usable as an
@@ -24,10 +24,10 @@ interactive artifact, dropped into a new project, or run manually in conversatio
 
 ## Token efficiency system
 
-Two separate things are kept lean: PromptRig's own API usage, and the compiled prompt it
+Two separate things are kept lean: Proofhouse's own API usage, and the compiled prompt it
 hands back. Neither claim is "magic" — both are ordinary, verifiable engineering choices:
 
-- **A universal token-discipline directive** is injected into every call PromptRig makes. It
+- **A universal token-discipline directive** is injected into every call Proofhouse makes. It
   instructs the model to cut redundant framing, merge overlapping constraints into single
   directives, never restate already-established information, and default to the shortest
   phrasing that preserves meaning. For Claude targets, it also asks the compiled prompt to
@@ -137,7 +137,7 @@ for this model (effort level, temperature, etc.) or empty string if not applicab
 ## Unfamiliar-model research & indexing
 
 If the target is "Other" and the named model/provider isn't one of the built-in profiles,
-PromptRig doesn't fall back to generic guidance right away:
+Proofhouse doesn't fall back to generic guidance right away:
 
 1. **Check the index first** — looks for previously researched notes on this model in
    persistent storage (`model-notes:{name}`, shared across sessions/users of the tool).
@@ -170,7 +170,7 @@ covering trigger type, interval/condition, stop condition, and what counts as "d
 
 ## Reuse
 
-- **Interactive**: use `promptrig.jsx` as-is (calls the Claude API directly, no backend needed).
+- **Interactive**: use `proofhouse.jsx` as-is (calls the Claude API directly, no backend needed).
 - **Manual**: paste the system/user prompts above into any conversation, filling in the
   `{{placeholders}}` by hand.
 - **Portable**: `proofhouse-framework.json` holds the same content as structured data for

@@ -1,4 +1,4 @@
-"""Strict PromptRig IR v0.1 parsing and schema loading.
+"""Strict Proofhouse IR v0.1 parsing and schema loading.
 
 Parsing (structural JSON correctness under the canonical-JSON profile) is
 kept separate from schema validation, which is a pass-protocol concern

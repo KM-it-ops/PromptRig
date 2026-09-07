@@ -1,9 +1,9 @@
 ---
-name: promptrig
-description: Meta prompt-optimizer that turns a natural-language objective into a fully optimized, model-specific prompt through branching upfront clarification and a self-heal refinement loop. Use this whenever the user wants help crafting, refining, or optimizing a prompt for a specific AI model or provider (Claude Fable 5.1, Mythos 5.1, Opus 5, Sonnet 5, Haiku 4.5, GPT-5.6 Sol/Terra/Luna, Gemini 3.8 Flash, Grok 4.6, Muse Spark 1.3, Kimi K3, or any other model/tool) -- especially when they say "PromptRig," "optimize this prompt," "write a prompt for [model]," ask for clarifying questions before drafting a prompt, care about token efficiency or prompt caching, are building a recurring/looping/autonomous task and need it engineered as a loop, want an unfamiliar model's prompting quirks researched, or want a "self-heal" pass on a prompt that isn't working right. Trigger even if they don't use the word "prompt" explicitly -- "help me get better output from Opus 5 for X" or "this isn't working with GPT" both qualify.
+name: proofhouse
+description: Meta prompt-optimizer that turns a natural-language objective into a fully optimized, model-specific prompt through branching upfront clarification and a self-heal refinement loop. Use this whenever the user wants help crafting, refining, or optimizing a prompt for a specific AI model or provider (Claude Fable 5.1, Mythos 5.1, Opus 5, Sonnet 5, Haiku 4.5, GPT-5.6 Sol/Terra/Luna, Gemini 3.8 Flash, Grok 4.6, Muse Spark 1.3, Kimi K3, or any other model/tool) -- especially when they say "Proofhouse," "optimize this prompt," "write a prompt for [model]," ask for clarifying questions before drafting a prompt, care about token efficiency or prompt caching, are building a recurring/looping/autonomous task and need it engineered as a loop, want an unfamiliar model's prompting quirks researched, or want a "self-heal" pass on a prompt that isn't working right. Trigger even if they don't use the word "prompt" explicitly -- "help me get better output from Opus 5 for X" or "this isn't working with GPT" both qualify.
 ---
 
-# PromptRig
+# Proofhouse
 
 A meta prompt-optimizer, not a single prompt template. Given a raw objective and a target
 model, it runs a fixed four-stage flow and hands back a ready-to-paste, model-specific
@@ -50,7 +50,7 @@ GPT-5.6 Sol/Terra/Luna, Gemini 3.8 Flash, Grok 4.6, Muse Spark 1.3, Kimi K3, and
 are in `references/proofhouse-framework.json` under `modelNotes`. For anything
 else the user names:
 
-1. Check whether you (or a prior PromptRig run) already have notes on it in this
+1. Check whether you (or a prior Proofhouse run) already have notes on it in this
    conversation's memory or an artifact's persistent storage.
 2. If not, research it -- web search for the model's actual prompting behavior, context
    window, and known quirks -- before compiling the prompt. Don't guess.

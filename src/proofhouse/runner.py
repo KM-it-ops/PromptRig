@@ -42,7 +42,7 @@ def validate_dataset(path: str | Path) -> list[ValidationIssue]:
 def build_markdown_report(dataset_path: str | Path) -> str:
     cases = load_jsonl(dataset_path)
     lines = [
-        "# PromptRig Eval Report",
+        "# Proofhouse Eval Report",
         "",
         f"Dataset: `{dataset_path}`",
         f"Cases: {len(cases)}",

@@ -1,6 +1,6 @@
 # Contributing
 
-PromptRig is intentionally small. Contributions should keep it practical, testable, and easy to inspect.
+Proofhouse is intentionally small. Contributions should keep it practical, testable, and easy to inspect.
 
 ## Local Checks
 

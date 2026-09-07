@@ -1,6 +1,6 @@
 """MissionRig generator and Workspace consumer (MISSION-036).
 
-Downstream of PromptRig. Does not own IR semantics. Write-back into IR is
+Downstream of Proofhouse. Does not own IR semantics. Write-back into IR is
 rejected. One profile: structured_minimal_v0 evidence bundles.
 """
 

@@ -43,7 +43,7 @@ class CapabilityResolutionPass:
                         message=(
                             f"Required provider capability {capability!r} is {resolution} for "
                             f"adapter {self._manifest.adapter_id!r}; no concrete condition is supplied "
-                            "by PromptRig IR v0.1."
+                            "by Proofhouse IR v0.1."
                         ),
                         document=self._source_document,
                         json_pointer=join_json_pointer("/provider_requirements/required_capabilities", idx),

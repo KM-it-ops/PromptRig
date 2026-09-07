@@ -107,10 +107,10 @@ def build_openapi() -> dict[str, Any]:
     return {
         "openapi": OPENAPI_VERSION,
         "info": {
-            "title": "PromptRig hosted-slice compiler transport",
+            "title": "Proofhouse hosted-slice compiler transport",
             "version": "0.1.0-draft",
             "description": (
-                "Generated from promptrig-compiler CLI. Not a hosted implementation. "
+                "Generated from proofhouse-compiler CLI. Not a hosted implementation. "
                 "Q2 is unpicked. execute-openai is opt-in live and is not on the default hosted path. "
                 "UI must not own semantics."
             ),

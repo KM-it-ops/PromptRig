@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://proofhouse.dev/schemas/ir/0.1.0",
-  "title": "PromptRig Intermediate Representation 0.1.0",
+  "title": "Proofhouse Intermediate Representation 0.1.0",
   "type": "object",
   "additionalProperties": false,
   "required": ["spec_version", "project", "objective", "requirements", "behavior", "evaluation", "provenance"],

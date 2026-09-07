@@ -1,6 +1,6 @@
 # Custom GPT Setup
 
-Use this to create **PromptOps Architect powered by PromptRig**.
+Use this to create **PromptOps Architect powered by Proofhouse**.
 
 ## Instructions
 
@@ -39,7 +39,7 @@ Keep eval datasets and source code in the repository unless the GPT needs to dis
 - Audit this prompt system and identify missing context.
 - Rewrite this agent prompt with tool boundaries and verification steps.
 - Build eval cases for this Custom GPT instruction set.
-- Convert these rough notes into modular PromptRig prompts.
+- Convert these rough notes into modular Proofhouse prompts.
 
 ## Safety Defaults
 

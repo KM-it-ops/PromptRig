@@ -1,10 +1,10 @@
-# PromptRig Showcase
+# Proofhouse Showcase
 
 Prompt systems that feel like maintained infrastructure — not sticky notes.
 
 ## Pitch
 
-Most prompts fail quietly: they miss context, drift from the product, overfit to one model, or grow too long to maintain. PromptRig is a small operating system for prompts:
+Most prompts fail quietly: they miss context, drift from the product, overfit to one model, or grow too long to maintain. Proofhouse is a small operating system for prompts:
 
 - Core identity and mission
 - Modes for audit, rewriting, agentic workflows, and evaluation
@@ -31,7 +31,7 @@ python -m proofhouse.cli report --dataset evals/datasets/prompt_audit_cases.json
 
 ## Example outcomes
 
-| You bring | PromptRig returns |
+| You bring | Proofhouse returns |
 |---|---|
 | Rough Custom GPT instructions | Modular system prompt, missing-context policy, safety boundaries |
 | Coding-agent workflow prompt | Tool permission map, stop conditions, verification loop, audit criteria |

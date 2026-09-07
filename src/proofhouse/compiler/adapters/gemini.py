@@ -109,7 +109,7 @@ CAPABILITY_LIMITS = {
             "Gemini's API genuinely supports built-in/grounding tools (e.g. google_search "
             "grounding, code_execution, Maps grounding) that run on Google's own infrastructure "
             "with no caller-side handler, combinable with caller-defined function tools via "
-            "Gemini 3's tool-context-circulation model. PromptRig's frozen IR v0.1 `tools` array "
+            "Gemini 3's tool-context-circulation model. Proofhouse's frozen IR v0.1 `tools` array "
             "schema (PROMPTRIG_IR_V0_1.schema.json) only supports the caller-defined custom-tool "
             "shape (id/description/input_schema/side_effecting/approval) -- there is no IR field "
             "to select a specific Gemini built-in tool or supply its configuration. This adapter "
@@ -292,7 +292,7 @@ class GeminiAdapter:
                 "capability_resolution": "conditional",
                 "thinking_level": None,
                 "thinking_level_note": (
-                    "PromptRig IR v0.1 has no field to source a concrete thinking_level "
+                    "Proofhouse IR v0.1 has no field to source a concrete thinking_level "
                     "value from; recorded as an open IR-schema question, not silently dropped "
                     "-- see ADR-006 (third confirmation, per MISSION_005_REPORT.md)."
                 ),
@@ -301,7 +301,7 @@ class GeminiAdapter:
                     "opaque": True,
                     "must_be_echoed_back_on_continuation": True,
                     "note": (
-                        "PromptRig IR v0.1 has no multi-turn/conversation-continuation state "
+                        "Proofhouse IR v0.1 has no multi-turn/conversation-continuation state "
                         "field at all (the IR represents a single compiled request), so there is "
                         "no field to carry a prior turn's thought signature into this artifact "
                         "even in principle -- a distinct, structurally deeper limitation than the "

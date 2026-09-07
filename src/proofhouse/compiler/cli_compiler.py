@@ -463,20 +463,20 @@ def _cmd_execute_openai(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="promptrig-compiler", description="PromptRig Compiler Core v0.1")
+    parser = argparse.ArgumentParser(prog="proofhouse-compiler", description="Proofhouse Compiler Core v0.1")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    p_validate = subparsers.add_parser("validate", help="Validate a PromptRig IR document.")
+    p_validate = subparsers.add_parser("validate", help="Validate a Proofhouse IR document.")
     p_validate.add_argument("input", help="Path to an IR JSON file, or '-' for stdin.")
     p_validate.add_argument("--json", action="store_true", help="Emit a single JSON result envelope.")
     p_validate.set_defaults(func=_cmd_validate)
 
-    p_inspect = subparsers.add_parser("inspect", help="Inspect a PromptRig IR document without compiling it.")
+    p_inspect = subparsers.add_parser("inspect", help="Inspect a Proofhouse IR document without compiling it.")
     p_inspect.add_argument("input", help="Path to an IR JSON file, or '-' for stdin.")
     p_inspect.add_argument("--json", action="store_true", help="Emit a single JSON result envelope.")
     p_inspect.set_defaults(func=_cmd_inspect)
 
-    p_compile = subparsers.add_parser("compile", help="Compile a PromptRig IR document with a selected adapter.")
+    p_compile = subparsers.add_parser("compile", help="Compile a Proofhouse IR document with a selected adapter.")
     p_compile.add_argument("input", help="Path to an IR JSON file, or '-' for stdin.")
     p_compile.add_argument("--adapter", default="fake", help="Adapter id to compile with (default: fake).")
     p_compile.add_argument("--adapter-version", required=True, help="Exact registered adapter version.")
@@ -666,7 +666,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_mg = subparsers.add_parser(
         "missionrig-generate",
-        help="Generate a MissionRig mission from PromptRig evidence (read-only; one profile).",
+        help="Generate a MissionRig mission from Proofhouse evidence (read-only; one profile).",
     )
     p_mg.add_argument("--evidence", required=True, help="Path to evidence bundle JSON.")
     p_mg.add_argument("--intake", required=True, help="Path to intake JSON.")

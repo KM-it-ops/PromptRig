@@ -8,7 +8,7 @@ version = "0.2.0"
 description = "Prompt operations framework for prompt architecture, audits, rewrites, and evals."
 readme = "README.md"
 requires-python = ">=3.11"
-authors = [{ name = "PromptRig Maintainers" }]
+authors = [{ name = "Proofhouse Maintainers" }]
 license = { text = "MIT" }
 dependencies = ["jsonschema>=4.18", "rfc8785==0.1.4"]
 
