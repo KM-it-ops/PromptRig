@@ -2,7 +2,7 @@
 
 Every emitted diagnostic is checked against two independent contracts:
 
-1. The vendored diagnostic code registry under `src/promptrig/compiler/schemas/`.
+1. The vendored diagnostic code registry under `src/proofhouse/compiler/schemas/`.
 2. The vendored diagnostic contract schema in the same directory.
 
 A registered code attached to a structurally non-conforming diagnostic is a

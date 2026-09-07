@@ -79,8 +79,8 @@ Approved headless profiles: `structured_minimal_v0`, `structured_developer_v0`. 
 ```bash
 python -m pip install -e .
 python -m pytest
-python -m promptrig.cli validate --dataset evals/datasets/prompt_audit_cases.jsonl
-python -m promptrig.cli report --dataset evals/datasets/prompt_audit_cases.jsonl --out evals/reports/prompt_audit_report.md
+python -m proofhouse.cli validate --dataset evals/datasets/prompt_audit_cases.jsonl
+python -m proofhouse.cli report --dataset evals/datasets/prompt_audit_cases.jsonl --out evals/reports/prompt_audit_report.md
 ```
 
 Windows:

@@ -1,6 +1,6 @@
 """PromptRig Compiler Core v0.1 — deterministic, offline IR compiler.
 
-Public library surface lives in `promptrig.compiler.api`. Default
+Public library surface lives in `proofhouse.compiler.api`. Default
 compile/validate/closed-loop paths contain no live provider calls, network
 access, or credential handling. Opt-in live OpenAI execution lives in
 `execution.py` (fail-closed, DEFERRED-to-opt-in, not CERTIFIED).

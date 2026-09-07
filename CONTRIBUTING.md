@@ -7,7 +7,7 @@ PromptRig is intentionally small. Contributions should keep it practical, testab
 ```bash
 python -m pip install -e .
 python -m pytest
-python -m promptrig.cli validate --dataset evals/datasets/prompt_audit_cases.jsonl
+python -m proofhouse.cli validate --dataset evals/datasets/prompt_audit_cases.jsonl
 ```
 
 Validate every dataset you add under `evals/datasets/`.

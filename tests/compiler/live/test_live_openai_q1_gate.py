@@ -11,7 +11,7 @@ import os
 
 import pytest
 
-from promptrig.compiler.execution import LiveOpenAIRequest, execute_openai
+from proofhouse.compiler.execution import LiveOpenAIRequest, execute_openai
 
 pytestmark = pytest.mark.live
 
