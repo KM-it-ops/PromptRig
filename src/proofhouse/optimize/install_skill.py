@@ -70,8 +70,36 @@ class InstallResult:
     leftover: Path | None = None
 
 
+def _check_host(host: str) -> None:
+    if host not in HOSTS:
+        raise InstallSkillError(f"unknown host {host!r}; choose from {', '.join(sorted(HOSTS))}", EXIT_USAGE_ERROR)
+
+
 def default_dest(host: str = "cursor") -> Path:
+    _check_host(host)
     return Path.home() / HOSTS[host][0] / "skills"
+
+
+def resolve_host(host: str | None, dest: Path | None) -> str | None:
+    """The agent to install for, without guessing.
+
+    An explicit ``host`` wins. With ``dest`` the folder is already chosen, so no agent is needed
+    (``None``). Otherwise exactly one agent folder must already exist under the home directory;
+    none or several is a usage error that lists the ``--host`` choices.
+    """
+    if host is not None:
+        _check_host(host)
+        return host
+    if dest is not None:
+        return None
+    present = [name for name, (folder, _) in sorted(HOSTS.items()) if (Path.home() / folder).is_dir()]
+    if len(present) == 1:
+        return present[0]
+    reason = "found more than one agent folder" if present else "found no agent folder"
+    raise InstallSkillError(
+        f"no agent named and {reason} under {Path.home()}; re-run with --host {{{','.join(sorted(HOSTS))}}} or --dest",
+        EXIT_USAGE_ERROR,
+    )
 
 
 def _unreadable(bundle: Path, reason: str) -> InstallSkillError:

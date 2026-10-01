@@ -87,7 +87,7 @@ def test_fresh_install_extracts_four_files_and_verifies_name(tmp_path: Path, cap
     assert out.splitlines() == [
         f"install-skill: installed 4 files -> {skill_dir.resolve()}",
         "  verified: name: proofhouse",
-        '  next: start a new Cursor Agent chat and say "Proofhouse"',
+        '  next: start a new chat or session in your agent and say "Proofhouse"',
     ]
     installed = sorted(str(p.relative_to(dest)).replace("\\", "/") for p in skill_dir.rglob("*") if p.is_file())
     assert installed == EXPECTED_FILES
@@ -183,7 +183,7 @@ def test_json_output_lists_files_and_bundle(tmp_path: Path, capsys) -> None:
     assert payload["command"] == "install-skill"
     assert payload["status"] == "success"
     data = payload["data"]
-    assert set(data) == {"dest", "files", "verified", "bundle", "backup"}
+    assert set(data) == {"host", "dest", "files", "verified", "bundle", "backup"}
     assert data["backup"] is None
     assert data["dest"] == str((dest / "proofhouse").resolve())
     assert data["files"] == EXPECTED_FILES
@@ -235,3 +235,51 @@ def test_cli_warns_when_the_replaced_copy_could_not_be_removed(tmp_path: Path, m
     err = capsys.readouterr().err
     assert err.startswith("warning: could not remove the replaced copy at ")
     assert "delete it so the host does not load two copies" in err
+
+
+def test_no_host_flag_never_creates_an_unused_agent_folder(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    monkeypatch.setenv("PROOFHOUSE_HOME", str(tmp_path / "ph"))
+    monkeypatch.setattr("sys.stdin", open(__import__("os").devnull))  # non-interactive
+    (tmp_path / ".claude").mkdir()  # the user runs Claude Code only
+    cli_compiler.main(["install-skill"])
+    capsys.readouterr()
+    assert not (tmp_path / ".cursor").exists()
+
+
+def test_no_host_flag_installs_for_the_only_agent_folder_present(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    (tmp_path / ".claude").mkdir()
+    code, out, err = _run(["install-skill"], capsys)
+    assert code == 0 and err == ""
+    assert (tmp_path / ".claude" / "skills" / "proofhouse" / "SKILL.md").is_file()
+    assert "a new Claude Code session" in out
+
+
+@pytest.mark.parametrize("present", [[], [".claude", ".cursor"]])
+def test_no_host_flag_with_no_or_several_agent_folders_exits_2_and_lists_choices(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys, present: list[str]
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    for name in present:
+        (tmp_path / name).mkdir()
+    code, out, err = _run(["install-skill"], capsys)
+    assert code == 2 and out == ""
+    assert "--host {claude,cursor}" in err
+    assert not (tmp_path / ".claude" / "skills").exists() and not (tmp_path / ".cursor" / "skills").exists()
+
+
+def test_dest_without_host_installs_there_and_names_no_agent(tmp_path: Path, capsys) -> None:
+    code, out, _ = _run(["install-skill", "--dest", str(tmp_path / "skills"), "--json"], capsys)
+    assert code == 0
+    assert json.loads(out)["data"]["host"] is None
+
+
+def test_install_api_unknown_host_is_a_usage_error() -> None:
+    with pytest.raises(install_skill.InstallSkillError) as excinfo:
+        install_skill.install(host="codex")
+    assert excinfo.value.exit_code == 2
