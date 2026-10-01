@@ -249,6 +249,15 @@ def test_no_host_flag_never_creates_an_unused_agent_folder(
     assert not (tmp_path / ".cursor").exists()
 
 
+def test_install_api_without_host_targets_cursor_home(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    monkeypatch.setenv("PROOFHOUSE_HOME", str(tmp_path / "ph"))
+    result = install_skill.install()
+    assert result.dest == (tmp_path / ".cursor" / "skills" / "proofhouse").resolve()
+
+
 def test_no_host_flag_installs_for_the_only_agent_folder_present(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
 ) -> None:
