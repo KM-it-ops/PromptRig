@@ -415,3 +415,14 @@ def test_terminal_with_dest_asks_nothing(tmp_path: Path, monkeypatch: pytest.Mon
     assert code == 0, err
     assert "Which agent" not in err
     assert (tmp_path / "skills" / "proofhouse" / "SKILL.md").is_file()
+
+
+def test_json_host_reports_the_detected_agent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    monkeypatch.setenv("PROOFHOUSE_HOME", str(tmp_path / "ph"))
+    (tmp_path / ".claude").mkdir()
+    code, out, _ = _run(["install-skill", "--json"], capsys)
+    assert code == 0
+    assert json.loads(out)["data"]["host"] == "claude"
