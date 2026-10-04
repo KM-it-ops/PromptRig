@@ -438,3 +438,18 @@ def test_a_plain_file_named_like_an_agent_folder_is_not_an_agent(
     code, out, err = _run(["install-skill"], capsys)
     assert code == 0, err
     assert (tmp_path / ".claude" / "skills" / "proofhouse" / "SKILL.md").is_file()
+
+
+def test_terminal_new_agent_folder_typed_with_a_tilde_lands_under_the_home_folder(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setenv("USERPROFILE", str(tmp_path))
+    elsewhere = tmp_path / "cwd"
+    elsewhere.mkdir()
+    monkeypatch.chdir(elsewhere)
+    _interactive(monkeypatch, tmp_path, "3\nWindsurf\n~/ws/skills\n", [])
+    code, out, err = _run(["install-skill"], capsys)
+    assert code == 0, err
+    assert (tmp_path / "ws" / "skills" / "proofhouse" / "SKILL.md").is_file()
+    assert not (elsewhere / "~").exists()
