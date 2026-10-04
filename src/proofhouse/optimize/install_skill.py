@@ -39,10 +39,10 @@ DEFAULT_BUNDLE = PACKAGE_BUNDLE_PATH
 MAX_UNCOMPRESSED_BYTES = 16 * 1024 * 1024
 MAX_ENTRIES = 256
 BACKUP_DIR = "skill-backups"
-# Host agent -> (config directory under the home directory, where to start using the skill).
+# Host agent -> (config directory under the home directory, display name, where to start using the skill).
 HOSTS = {
-    "cursor": (".cursor", "a new Cursor Agent chat"),
-    "claude": (".claude", "a new Claude Code session"),
+    "cursor": (".cursor", "Cursor", "a new Cursor Agent chat"),
+    "claude": (".claude", "Claude Code", "a new Claude Code session"),
 }
 
 # Same values as cli.py / compiler.cli_compiler.
@@ -75,7 +75,7 @@ def _check_host(host: str) -> None:
         raise InstallSkillError(f"unknown host {host!r}; choose from {', '.join(sorted(HOSTS))}", EXIT_USAGE_ERROR)
 
 
-def default_dest(host: str = "cursor") -> Path:
+def default_dest(host: str) -> Path:
     _check_host(host)
     return Path.home() / HOSTS[host][0] / "skills"
 
@@ -92,7 +92,7 @@ def resolve_host(host: str | None, dest: Path | None) -> str | None:
         return host
     if dest is not None:
         return None
-    present = [name for name, (folder, _) in sorted(HOSTS.items()) if (Path.home() / folder).is_dir()]
+    present = [name for name, (folder, *_) in sorted(HOSTS.items()) if (Path.home() / folder).is_dir()]
     if len(present) == 1:
         return present[0]
     reason = "found more than one agent folder" if present else "found no agent folder"
@@ -173,8 +173,14 @@ def _backup_path() -> Path:
 
 
 def install(
-    dest: Path | None = None, bundle: Path | None = None, *, force: bool = False, host: str = "cursor"
+    dest: Path | None = None, bundle: Path | None = None, *, force: bool = False, host: str | None = None
 ) -> InstallResult:
+    """Install into ``dest``, or into ``host``'s skills folder; never assumes an agent."""
+    if dest is None and host is None:
+        raise InstallSkillError(
+            f"name an agent (--host {{{','.join(sorted(HOSTS))}}}) or a skills folder (--dest); nothing was installed",
+            EXIT_USAGE_ERROR,
+        )
     dest_dir = (dest if dest is not None else default_dest(host)).resolve()
     bundle_path = bundle if bundle is not None else DEFAULT_BUNDLE
     skill_dir = dest_dir / SKILL_NAME
