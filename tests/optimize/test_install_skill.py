@@ -462,3 +462,12 @@ def test_host_cursor_next_step_names_a_cursor_agent_chat(
     code, out, err = _run(["install-skill", "--host", "cursor"], capsys)
     assert code == 0, err
     assert out.splitlines()[-1] == '  next: start a new Cursor Agent chat and say "Proofhouse"'
+
+
+def test_terminal_answer_that_is_a_huge_number_is_refused_not_a_crash(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    _interactive(monkeypatch, tmp_path, "9" * 5000 + "\n", [".claude"])
+    code, out, err = _run(["install-skill"], capsys)
+    assert code == 2 and out == ""
+    assert not (tmp_path / ".claude" / "skills").exists()
