@@ -471,3 +471,16 @@ def test_terminal_answer_that_is_a_huge_number_is_refused_not_a_crash(
     code, out, err = _run(["install-skill"], capsys)
     assert code == 2 and out == ""
     assert not (tmp_path / ".claude" / "skills").exists()
+
+
+def test_terminal_menu_marks_found_only_on_the_line_of_an_agent_folder_that_exists(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    _interactive(monkeypatch, tmp_path, "", [".claude"])
+    (tmp_path / ".cursor").write_text("not a folder")
+    _, _, err = _run(["install-skill"], capsys)
+    lines = err.splitlines()
+    claude_line = next(line for line in lines if "1) Claude Code" in line)
+    cursor_line = next(line for line in lines if "2) Cursor" in line)
+    assert claude_line.endswith("(found)")
+    assert "(found)" not in cursor_line
