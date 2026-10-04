@@ -484,3 +484,18 @@ def test_terminal_menu_marks_found_only_on_the_line_of_an_agent_folder_that_exis
     cursor_line = next(line for line in lines if "2) Cursor" in line)
     assert claude_line.endswith("(found)")
     assert "(found)" not in cursor_line
+
+
+@pytest.mark.parametrize(
+    ("present", "reason"),
+    [([], "found no agent folder"), ([".claude", ".cursor"], "found more than one agent folder")],
+)
+def test_no_host_flag_refusal_says_whether_none_or_several_agent_folders_were_found(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys, present: list[str], reason: str
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    for name in present:
+        (tmp_path / name).mkdir()
+    code, _, err = _run(["install-skill"], capsys)
+    assert code == 2
+    assert reason in err
