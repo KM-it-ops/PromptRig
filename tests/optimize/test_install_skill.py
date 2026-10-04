@@ -407,3 +407,11 @@ def test_terminal_answer_that_looks_like_a_digit_but_is_not_one_is_refused_not_a
     code, out, err = _run(["install-skill"], capsys)
     assert code == 2 and out == ""
     assert not (tmp_path / ".claude" / "skills").exists()
+
+
+def test_terminal_with_dest_asks_nothing(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys) -> None:
+    _interactive(monkeypatch, tmp_path, "", [".claude"])
+    code, out, err = _run(["install-skill", "--dest", str(tmp_path / "skills")], capsys)
+    assert code == 0, err
+    assert "Which agent" not in err
+    assert (tmp_path / "skills" / "proofhouse" / "SKILL.md").is_file()
