@@ -426,3 +426,15 @@ def test_json_host_reports_the_detected_agent(
     code, out, _ = _run(["install-skill", "--json"], capsys)
     assert code == 0
     assert json.loads(out)["data"]["host"] == "claude"
+
+
+def test_a_plain_file_named_like_an_agent_folder_is_not_an_agent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    monkeypatch.setenv("PROOFHOUSE_HOME", str(tmp_path / "ph"))
+    (tmp_path / ".claude").mkdir()
+    (tmp_path / ".cursor").write_text("not a folder")
+    code, out, err = _run(["install-skill"], capsys)
+    assert code == 0, err
+    assert (tmp_path / ".claude" / "skills" / "proofhouse" / "SKILL.md").is_file()
