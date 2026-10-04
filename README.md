@@ -109,7 +109,7 @@ Details: [docs/architecture.md](docs/architecture.md), [decision 0002](docs/deci
 | Entry | Use it when | Status | Network |
 |---|---|---|---|
 | **Command line**: `proofhouse-compiler optimize` | You want the evidence trail above: constraints, recorded outputs, checks, compare, report | supported | none |
-| **Cursor or Claude Code skill**: `proofhouse-compiler install-skill` (Cursor) or `install-skill --host claude` (Claude Code), then say "Proofhouse" in a new chat or session | You want the same clarify → compile → self-heal loop as a conversation | supported entry point | the host agent's tools |
+| **Cursor or Claude Code skill**: `proofhouse-compiler install-skill --host cursor` (Cursor) or `install-skill --host claude` (Claude Code), then say "Proofhouse" in a new chat or session | You want the same clarify → compile → self-heal loop as a conversation | supported entry point | the host agent's tools |
 
 Proofhouse is two products in one repo, at different levels of maturity. The **PromptOps skill and framework (v1.3)**, the conversational meta-optimizer with current frontier model profiles, is the most mature part of the project. The headless compiler's maturity is listed under [Experimental and prototype parts](#experimental-and-prototype-parts).
 

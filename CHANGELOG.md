@@ -5,7 +5,7 @@
 ### Added
 
 - `proofhouse-compiler install-skill --host claude` installs the skill into
-  Claude Code's `~/.claude/skills`. The default (`--host cursor`) is unchanged.
+  Claude Code's `~/.claude/skills`; `--host cursor` installs into `~/.cursor/skills`.
 - `proofhouse scan [PATH]` reads a project folder and reports its language,
   frameworks, package manager, test tools, CI, agent instruction files, layout
   and a short README excerpt, so the skill can pre-fill the environment questions
@@ -15,6 +15,12 @@
   and a test fails if the two copies differ.
 - `skills/proofhouse/INSTALL.md`: short instructions written for an AI agent, so a user can
   hand the skill folder to Claude Code, Cursor or another agent and say "install this".
+
+### Changed
+
+- `install-skill` no longer defaults to Cursor. With no `--host` and no `--dest`, it installs
+  for the one agent whose folder (`~/.cursor` or `~/.claude`) already exists; with none or both
+  it exits 2 and lists the choices. `--json` output now includes `host`.
 
 ## 0.3.0 - Evidence Integrity
 
