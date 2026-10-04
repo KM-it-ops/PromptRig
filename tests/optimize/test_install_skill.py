@@ -398,3 +398,12 @@ def test_null_device_stdin_is_not_a_terminal_and_installs_for_the_only_agent(
     assert code == 0, err
     assert "Which agent" not in err
     assert (tmp_path / ".claude" / "skills" / "proofhouse" / "SKILL.md").is_file()
+
+
+def test_terminal_answer_that_looks_like_a_digit_but_is_not_one_is_refused_not_a_crash(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    _interactive(monkeypatch, tmp_path, "²\n", [".claude"])  # superscript two
+    code, out, err = _run(["install-skill"], capsys)
+    assert code == 2 and out == ""
+    assert not (tmp_path / ".claude" / "skills").exists()

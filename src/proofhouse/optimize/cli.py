@@ -642,7 +642,7 @@ def _ask_agent() -> tuple[str | None, Path | None, str]:
         answer = _prompt(f"Choose 1-{other}: ")
         if answer is None:
             raise refused
-        if answer.isdigit() and 1 <= int(answer) <= len(hosts):
+        if answer.isascii() and answer.isdigit() and 1 <= int(answer) <= len(hosts):
             host = hosts[int(answer) - 1]
             return host, None, install_mod.HOSTS[host][1]
         if answer == str(other):
