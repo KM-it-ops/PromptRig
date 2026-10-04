@@ -453,3 +453,12 @@ def test_terminal_new_agent_folder_typed_with_a_tilde_lands_under_the_home_folde
     assert code == 0, err
     assert (tmp_path / "ws" / "skills" / "proofhouse" / "SKILL.md").is_file()
     assert not (elsewhere / "~").exists()
+
+
+def test_host_cursor_next_step_names_a_cursor_agent_chat(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys
+) -> None:
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path))
+    code, out, err = _run(["install-skill", "--host", "cursor"], capsys)
+    assert code == 0, err
+    assert out.splitlines()[-1] == '  next: start a new Cursor Agent chat and say "Proofhouse"'
