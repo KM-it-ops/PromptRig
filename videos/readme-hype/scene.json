@@ -1,0 +1,83 @@
+{
+  "_about": "One description of the video. Times are frames at `fps` (Remotion is canonical; Hyperframes divides by fps). The recorded-run copy (objective, answers, prompt) is NOT here: build.mjs reads it from examples/readme-demo so it is never retyped.",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "durationFrames": 1260,
+  "theme": {
+    "ink": "#0a0f0c",
+    "card": "#0d1410",
+    "line": "#1e3a2a",
+    "mint": "#c8f5d8",
+    "green": "#3ddc84",
+    "dim": "#5a8a6a",
+    "soft": "#8ab89a",
+    "mono": "\"Cascadia Mono\", Consolas, ui-monospace, monospace"
+  },
+  "screens": { "input": 0, "clarify": 420, "output": 840 },
+  "shell": { "width": 1080, "marginTop": 64, "minHeight": 640, "enter": { "damping": 16, "stiffness": 70, "mass": 0.8, "rise": 30 }, "spinPerFrame": 3 },
+  "audio": { "volume": 0.45, "hits": [[0.4, 196, 0.1], [11.3, 330, 0.14], [25.3, 392, 0.14]] },
+  "copy": {
+    "brand": "PROOFHOUSE",
+    "tagline": "natural language in > model-optimized prompt out > refine until it's right",
+    "input": {
+      "objectiveLabel": "Objective",
+      "modelLabel": "Target model / provider",
+      "modelBefore": "Claude Sonnet 5",
+      "modelAfter": "Grok 4.7",
+      "loopLabel": "LOOP / RECURRING TASK",
+      "loopRest": "— trigger, verify, exit, checkpoints",
+      "efficiencyLabel": "Token efficiency",
+      "pills": ["Efficient", "Balanced", "Thorough"],
+      "pillOn": 0,
+      "button": "Initialize >",
+      "buttonBusy": "Analyzing..."
+    },
+    "clarify": { "back": "← back", "counter": "{n}/{total} answered" },
+    "output": {
+      "head": "OPTIMIZED PROMPT · GROK 4.7",
+      "copy": "copy",
+      "copied": "copied",
+      "footer": "~260 tokens (est.) · efficient mode · loop-structured",
+      "titles": ["Goal", "Loop Structure", "Security & Reliability"]
+    }
+  },
+  "beats": {
+    "input": {
+      "typeFrom": 24,
+      "typeTo": 150,
+      "caretUntil": 160,
+      "modelSwitchAfter": 175,
+      "loopSpringAt": 210,
+      "loopSpring": { "damping": 12, "stiffness": 180 },
+      "pressAfter": 300,
+      "busyAt": 318
+    },
+    "clarify": {
+      "answerAt": 18,
+      "step": 16,
+      "enterAt": 10,
+      "enterSpring": { "damping": 14, "stiffness": 140, "mass": 0.6 }
+    },
+    "output": { "revealAt": 12, "revealStep": 2, "revealLen": 10, "copiedAfter": 300, "copiedBefore": 340 }
+  },
+  "cursor": {
+    "stops": [
+      { "f": 0, "x": 240, "y": 180 },
+      { "f": 30, "x": 760, "y": 300 },
+      { "f": 170, "x": 760, "y": 430 },
+      { "f": 210, "x": 250, "y": 500 },
+      { "f": 300, "x": 960, "y": 700 },
+      { "f": 420, "x": 700, "y": 240 },
+      { "f": 760, "x": 960, "y": 860 },
+      { "f": 860, "x": 1500, "y": 220 }
+    ],
+    "clicks": [300, 760],
+    "clickLen": 8
+  },
+  "ripples": [
+    { "at": 340, "x": 960, "y": 760 },
+    { "at": 780, "x": 960, "y": 820 }
+  ],
+  "rippleLen": 36
+}
