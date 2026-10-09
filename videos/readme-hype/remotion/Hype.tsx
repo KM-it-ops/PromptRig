@@ -44,7 +44,6 @@ const Field: React.FC<{ frame: number }> = ({ frame }) => {
     const bright = 0.25 + (Math.sin(frame / 11 + i) + 1) * 0.2;
     return { x, y, bright, size: 1.4 + (i % 4) * 0.7 };
   });
-  const ripples = scene.ripples;
   return (
     <AbsoluteFill>
       <AbsoluteFill
@@ -92,29 +91,37 @@ const Field: React.FC<{ frame: number }> = ({ frame }) => {
           }}
         />
       ))}
-      {ripples.map(({ at, x, y }) => {
-        const age = frame - at;
-        if (age < 0 || age > scene.rippleLen) return null;
-        const scale = interpolate(age, [0, scene.rippleLen], [0.15, 2.8]);
-        return (
-          <div
-            key={at}
-            style={{
-              position: "absolute",
-              left: x,
-              top: y,
-              width: 220,
-              height: 220,
-              marginLeft: -110,
-              marginTop: -110,
-              borderRadius: "50%",
-              border: `2px solid ${GREEN}`,
-              opacity: interpolate(age, [0, scene.rippleLen], [0.8, 0]),
-              transform: `scale(${scale})`,
-            }}
-          />
-        );
-      })}
+    </AbsoluteFill>
+  );
+};
+
+const Ripples: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+        {scene.ripples.map(({ at, x, y }) => {
+          const age = frame - at;
+          if (age < 0 || age > scene.rippleLen) return null;
+          const scale = interpolate(age, [0, scene.rippleLen], [0.15, 2.8]);
+          return (
+            <div
+              key={at}
+              style={{
+                position: "absolute",
+                left: x,
+                top: y,
+                width: 220,
+                height: 220,
+                marginLeft: -110,
+                marginTop: -110,
+                borderRadius: "50%",
+                border: `2px solid ${GREEN}`,
+                opacity: interpolate(age, [0, scene.rippleLen], [0.8, 0]),
+                transform: `scale(${scale})`,
+              }}
+            />
+          );
+        })}
     </AbsoluteFill>
   );
 };
@@ -156,7 +163,13 @@ const Shell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const frame = useCurrentFrame();
   const spin = frame * scene.shell.spinPerFrame;
   return (
-    <div style={{ width: scene.shell.width, margin: `${scene.shell.marginTop}px auto 0`, position: "relative" }}>
+    <div style={{
+        width: scene.shell.width,
+        margin: `${scene.shell.marginTop}px auto 0`,
+        position: "relative",
+        transform: `scale(${scene.shell.scale})`,
+        transformOrigin: "top center",
+      }}>
       <div
         style={{
           position: "absolute",
@@ -390,13 +403,44 @@ const Cursor: React.FC = () => {
   }
   const click = scene.cursor.clicks.some((at) => frame >= at && frame < at + scene.cursor.clickLen);
   return (
-    <div style={{ position: "absolute", left: x, top: y, zIndex: 8, transform: `scale(${click ? 0.85 : 1})` }}>
+    <div style={{ position: "absolute", left: x - scene.cursor.tip.x, top: y - scene.cursor.tip.y, zIndex: 8, transform: `scale(${click ? 0.85 : 1})` }}>
       <svg width="28" height="28" viewBox="0 0 24 24">
         <path d="M4 2 L4 18 L9 14 L13 22 L16 20 L12 12 L19 12 Z" fill={MINT} stroke={INK} strokeWidth="1" />
       </svg>
     </div>
   );
 };
+
+const Screen: React.FC<{ length: number; fadeIn: boolean; fadeOut: boolean; children: React.ReactNode }> = ({
+  length,
+  fadeIn,
+  fadeOut,
+  children,
+}) => {
+  const frame = useCurrentFrame();
+  const { len, rise } = scene.transition;
+  const ease = { ...clamp, easing: Easing.inOut(Easing.quad) };
+  const inP = fadeIn ? interpolate(frame, [0, len], [0, 1], ease) : 1;
+  const outP = fadeOut ? interpolate(frame, [length, length + len], [1, 0], ease) : 1;
+  return (
+    <div
+      style={{
+        width: "100%",
+        alignSelf: "flex-start",
+        opacity: inP * outP,
+        transform: `translateY(${rise * (1 - inP) - rise * (1 - outP)}px)`,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const SCREENS = [
+  { name: "input", at: INPUT_AT, length: CLARIFY_AT - INPUT_AT, Component: InputScreen },
+  { name: "clarify", at: CLARIFY_AT, length: OUTPUT_AT - CLARIFY_AT, Component: ClarifyScreen },
+  { name: "output", at: OUTPUT_AT, length: DURATION - OUTPUT_AT, Component: OutputScreen },
+];
 
 export const Hype: React.FC = () => {
   const frame = useCurrentFrame();
@@ -410,18 +454,20 @@ export const Hype: React.FC = () => {
       <AbsoluteFill style={{ opacity: enter, transform: `translateY(${interpolate(enter, [0, 1], [enterConfig.rise, 0])}px)` }}>
         <Shell>
           <div style={{ position: "relative", minHeight }}>
-            <Sequence from={INPUT_AT} durationInFrames={CLARIFY_AT}>
-              <InputScreen />
-            </Sequence>
-            <Sequence from={CLARIFY_AT} durationInFrames={OUTPUT_AT - CLARIFY_AT}>
-              <ClarifyScreen />
-            </Sequence>
-            <Sequence from={OUTPUT_AT} durationInFrames={DURATION - OUTPUT_AT}>
-              <OutputScreen />
-            </Sequence>
+            {SCREENS.map(({ name, at, length, Component }, index) => {
+              const last = index === SCREENS.length - 1;
+              return (
+                <Sequence key={name} from={at} durationInFrames={length + (last ? 0 : scene.transition.len)}>
+                  <Screen length={length} fadeIn={index > 0} fadeOut={!last}>
+                    <Component />
+                  </Screen>
+                </Sequence>
+              );
+            })}
           </div>
         </Shell>
       </AbsoluteFill>
+      <Ripples />
       <Cursor />
     </AbsoluteFill>
   );

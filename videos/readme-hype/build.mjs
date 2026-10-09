@@ -45,7 +45,7 @@ export function loadScene() {
     hosts: starts.map(([name, at], index) => ({
       name,
       start: at / scene.fps,
-      dur: ((starts[index + 1]?.[1] ?? scene.durationFrames) - at) / scene.fps,
+      dur: ((starts[index + 1]?.[1] ?? scene.durationFrames) - at + (starts[index + 1] ? scene.transition.len : 0)) / scene.fps,
     })),
   };
   return scene;
